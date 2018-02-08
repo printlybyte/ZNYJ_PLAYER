@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:layout_marginLeft="6dp"
+    android:layout_marginRight="6dp"
+    android:layout_marginTop="8dp"
+    android:background="@color/md_white"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <!--<android.support.v7.widget.CardView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginLeft="6dp"-->
+    <!--android:layout_marginRight="6dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:background="@color/md_white"-->
+    <!--app:cardCornerRadius="5dp"-->
+    <!--app:cardElevation="5dp">-->
+
+    <ImageView
+        android:id="@+id/devices_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="8dp"
+        android:background="#f90" />
+
+    <LinearLayout
+        android:layout_marginTop="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="58dp"
+        android:background="@color/md_white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/devices_tiile"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:autoText="true"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:text="设备名称："
+            android:textColor="#000" />
+
+        <TextView
+            android:singleLine="true"
+            android:id="@+id/item_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            tools:text="item" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginBottom="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="58dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/devices_url"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:autoText="true"
+            android:gravity="center"
+            android:paddingLeft="8dp"
+            android:text="IP地址："
+            android:textColor="#000" />
+
+        <TextView
+            android:singleLine="true"
+            android:id="@+id/item_tv_url"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            tools:text="item" />
+    </LinearLayout>
+
+    <!--</android.support.v7.widget.CardView>-->
+</android.support.v7.widget.CardView>

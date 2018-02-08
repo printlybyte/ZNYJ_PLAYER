@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">智能眼镜</string>
+
+
+    <string name="md_to_rv_page">RecyclerView Demo</string>
+
+    <string name="md_del_item">删除item</string>
+
+    <string name="md_add_item">添加item</string>
+
+    <string name="md_linear_rv">线性RecyclerView</string>
+
+    <string name="md_grid_rv">网格RecyclerView</string>
+
+    <string name="md_staggered_rv">瀑布RecyclerView</string>
+
+    <string name="md_swipe_rv">滑动删除RecyclerView</string>
+    <string name="main_title">智能眼镜</string>
+    <string name="defult_ip">请输入您的IP</string>
+    <string name="defult_devicesid">请输入您的设备编号</string>
+    <string name="savecomplete">保存成功</string>
+
+    <string name="md_drag_rv">拖动切换item位置RecyclerView</string>
+</resources>
