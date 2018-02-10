@@ -9,8 +9,8 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.lgd.znyj_player"
-        minSdkVersion 15
-        targetSdkVersion 19
+        minSdkVersion 19
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -20,6 +20,11 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+}
+repositories {
+    flatDir {
+        dirs 'libs'
     }
 }
 
@@ -38,5 +43,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.0.1'
     compile 'com.liuguodong:LgdMyUtilsx:1.0.2'
     compile 'com.yanzhenjie:recyclerview-swipe:1.1.4'
-
+    compile(name: 'libvlc-3.0.0-null', ext: 'aar')
+    compile(name: 'library-release', ext: 'aar')
+    compile(name: 'regcode-release', ext: 'aar')
 }

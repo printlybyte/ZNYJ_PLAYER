@@ -29,7 +29,7 @@
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="8dp"
-        android:background="#f90" />
+    />
 
     <LinearLayout
         android:layout_marginTop="3dp"
@@ -43,7 +43,7 @@
             android:id="@+id/devices_tiile"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:autoText="true"
+
             android:gravity="center"
             android:paddingLeft="8dp"
             android:text="设备名称："
@@ -71,7 +71,6 @@
             android:id="@+id/devices_url"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:autoText="true"
             android:gravity="center"
             android:paddingLeft="8dp"
             android:text="IP地址："

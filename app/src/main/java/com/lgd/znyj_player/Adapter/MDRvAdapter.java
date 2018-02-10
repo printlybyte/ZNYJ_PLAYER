@@ -4,10 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.lgd.znyj_player.Applacationx;
 import com.lgd.znyj_player.R;
 import com.lgd.znyj_player.bean.YJBean;
@@ -89,6 +91,7 @@ public class MDRvAdapter extends RecyclerView.Adapter<MDRvAdapter.ViewHolder> im
         // 绑定数据
         holder.mDevices.setText(mData.get(position).getMYJdevice());
         holder.mUrl.setText(mData.get(position).getMYJip());
+        Glide.with(Applacationx.getAppContext()).load(R.mipmap.devices_image).placeholder(R.drawable.ic_back_icon).into(holder.mImage);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,11 +139,13 @@ public class MDRvAdapter extends RecyclerView.Adapter<MDRvAdapter.ViewHolder> im
 
         TextView mDevices;
         TextView mUrl;
+        ImageView mImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             mDevices = (TextView) itemView.findViewById(R.id.item_tv);
             mUrl = (TextView) itemView.findViewById(R.id.item_tv_url);
+            mImage = (ImageView) itemView.findViewById(R.id.devices_image);
         }
     }
 

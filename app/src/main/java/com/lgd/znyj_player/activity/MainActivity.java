@@ -159,18 +159,19 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+
+import com.lgd.regcode.RegUtil;
 import com.lgd.znyj_player.Adapter.MDRvAdapter;
 import com.lgd.znyj_player.R;
 import com.lgd.znyj_player.bean.YJBean;
-import com.lgd.znyj_player.contrl.MDLinearRvDividerDecoration;
 import com.lgd.znyj_player.greendao.gen.DaoUtils;
-import com.lgd.znyj_player.utils.Constans;
+import com.lgd.znyj_player.utils.NetworkUtils;
 import com.lgd.znyj_player.utils.OverallUtils;
 import com.lgd.znyj_player.utils.RecycleItemTouchHelper;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenu;
@@ -182,8 +183,11 @@ import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.util.List;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static com.lgd.znyj_player.utils.Constans.PUTEXTART_IP;
+import static com.lgd.znyj_player.utils.Constans.PUTEXTART_NAME;
+import static com.lgd.znyj_player.utils.Constans.PUTEXTART_URL;
 import static com.lgd.znyj_player.utils.Constans.REQUST_CODE_FINSHED;
+
 public class MainActivity extends Activity implements View.OnClickListener {
     //    private SwipeMenuRecyclerView mRecyclerView;
     private RecyclerView mRecyclerView;
@@ -209,9 +213,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         initData();
         initView();
-        initAction();
+//        initRegUtil();
     }
+    private void initRegUtil() {
+        RegUtil regUtil = new RegUtil(this);
+        regUtil.SetDialogCancelCallBack(new RegUtil.DialogCancelInterface() {
+            @Override
+            public void ToFinishActivity() {
+                finish();
+            }
 
+            @Override
+            public void ToFinishActivity_pwd() {
+                finish();
+            }
+        });
+
+    }
 
     private void initData() {
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -220,7 +238,21 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mAdapter.setOnItemClickListener(new MDRvAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "click " + position + " item", Toast.LENGTH_SHORT).show();
+                YJBean bean = getData().get(position);
+                String myJdevice = bean.getMYJdevice();
+                String url = bean.getMYJUrl();
+                String ip = bean.getMYJip();
+                if (TextUtils.isEmpty(myJdevice) || TextUtils.isEmpty(url)) {
+                    Toast.makeText(MainActivity.this, "输入为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!NetworkUtils.isConnected()) {
+                    Toast.makeText(MainActivity.this, "网络不可用", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                luanchPlayerActivity(myJdevice, url,ip);
+                Toast.makeText(MainActivity.this, " " + bean.getMYJUrl(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -326,9 +358,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
     };
 
-    private void initAction() {
 
-    }
 
     private List<YJBean> getData() {
         List<YJBean> mList = DaoUtils.quryDateAll();
@@ -342,6 +372,20 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     /**
+     * @Params: jump target playeractivity
+     * @Author: liuguodong
+     * @Date: 2018/2/9 13:12
+     * @return：
+     */
+    private void luanchPlayerActivity(String myJdevice, String url,String ip) {
+        Intent intent = new Intent(MainActivity.this, PlayerActivity.class);
+        intent.putExtra(PUTEXTART_NAME, myJdevice);
+        intent.putExtra(PUTEXTART_URL, url);
+        intent.putExtra(PUTEXTART_IP, ip);
+        startActivity(intent );
+    }
+
+    /**
      * @Params: add chick
      * @Author: liuguodong
      * @Date: 2018/2/7 13:03
@@ -349,6 +393,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
      */
     public void addOnChick_devices(View view) {
         startActivityForResult(new Intent(MainActivity.this, UrlActivity.class), REQUST_CODE_FINSHED);
+    }
+
+    public void fileOnChick_devices(View view) {
+        startActivity(new Intent(MainActivity.this, FileActivity.class));
     }
 
     /**

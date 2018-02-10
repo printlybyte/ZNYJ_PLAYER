@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PlayerActivity">
+
+    <include
+        android:id="@+id/title_action"
+
+        layout="@layout/baseactionbar" />
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/surface"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_below="@+id/title_action" />
+
+    <ScrollView
+        android:layout_below="@+id/surface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <TextView
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:gravity="center_vertical"
+        android:id="@+id/showinfo_txt"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+      />
+    </ScrollView>
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="#ffffff"
+        android:text="start"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/btn_cau"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#ffffff"
+        android:text="caupe"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+</RelativeLayout>

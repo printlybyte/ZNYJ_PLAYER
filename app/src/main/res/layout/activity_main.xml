@@ -30,12 +30,25 @@
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
+             android:layout_toLeftOf="@+id/file_manger"
             android:background="@null"
             android:clickable="true"
             android:onClick="addOnChick_devices"
             android:scaleType="center"
+
             android:src="@drawable/ic_yj_add_icon" />
+        <ImageButton
+            android:id="@+id/file_manger"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:clickable="true"
+            android:onClick="fileOnChick_devices"
+            android:scaleType="center"
+            android:src="@drawable/ic_title_fiel_icon" />
+
+
     </RelativeLayout>
 
     <LinearLayout

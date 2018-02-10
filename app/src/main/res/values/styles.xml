@@ -15,10 +15,13 @@
     <style name="AppTheme.NoTitle.FullScreen">
         <item name="android:windowFullscreen">true</item>
     </style>
-    <style name="Theme.AppCompat.NoActionBar">
+    <style name="Theme.AppCompat.NoActionBarx">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <!--<item name="windowDrawsSystemBarBackgrounds">false</item>-->
     </style>
-
+    <style name="DialogStyle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 
 </resources>

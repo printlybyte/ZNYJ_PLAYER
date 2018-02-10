@@ -1,92 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/tools"
     android:background="@color/colorPrimary"
-    android:fitsSystemWindows="true"
-   >
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f0f0f0">
-    </LinearLayout>
+        android:background="#f0f0f0"></LinearLayout>
 
-    <RelativeLayout
+    <include
         android:id="@+id/xxx"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimary">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:text="@string/main_title"
-            android:textColor="#f0f0f0"
-            android:textSize="16sp" />
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:clickable="true"
-            android:onClick="backOnChick_devicesx"
-            android:scaleType="center"
-            android:src="@drawable/ic_back_icon"
-         />
-    </RelativeLayout>
+        layout="@layout/baseactionbar"/>
 
     <android.support.v7.widget.CardView
         android:id="@+id/xxxxx"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="10dp"
-        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/xxx"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_margin="3dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
 
-    <com.lgd.znyj_player.utils.XEditText
-        android:id="@+id/xedit_ip"
-        android:background="@drawable/xedit_background"
-        android:paddingLeft="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textCursorDrawable="@drawable/editcursor"
-        android:hint="@string/defult_ip" />
+        <com.lgd.znyj_player.utils.XEditText
+            android:id="@+id/xedit_ip"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/xedit_background"
+            android:hint="@string/defult_ip"
+            android:paddingLeft="5dp"
+            android:textCursorDrawable="@drawable/editcursor" />
     </android.support.v7.widget.CardView>
 
 
     <android.support.v7.widget.CardView
         android:id="@+id/xxxxx2"
-        app:cardCornerRadius="5dp"
-        android:layout_margin="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/xxxxx"
-        app:cardElevation="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_margin="3dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
 
-    <com.lgd.znyj_player.utils.XEditText
-        android:background="@drawable/xedit_background"
-        android:paddingLeft="5dp"
-        android:id="@+id/xedit_devicesid"
-        android:textCursorDrawable="@drawable/editcursor"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        <com.lgd.znyj_player.utils.XEditText
+            android:id="@+id/xedit_devicesid"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/xedit_background"
+            android:hint="@string/defult_devicesid"
+            android:paddingLeft="5dp"
 
 
-        android:hint="@string/defult_devicesid" />
+            android:textCursorDrawable="@drawable/editcursor" />
     </android.support.v7.widget.CardView>
 
     <com.lgd.lgdmyutilsx.loadingbutton.ActionProcessButton
         android:id="@+id/btnSave"
-        android:layout_margin="3dp"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@+id/xxxxx2"
+        android:layout_margin="3dp"
         android:layout_marginBottom="16dp"
         android:text="@string/Sign_in"
         android:textColor="@android:color/white"

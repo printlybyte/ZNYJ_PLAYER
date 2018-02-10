@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.lgd.znyj_player.activity.FileActivity">
+
+    <include
+        android:id="@+id/titlbal"
+        layout="@layout/baseactionbar" />
+
+    <LinearLayout
+        android:id="@+id/containerViewChancl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#3F51B5"
+            android:gravity="center"
+            android:onClick="dismisSeleAll"
+            android:text="取消全选"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            tools:ignore="OnClick" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerViewEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titlbal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="暂无视频文件" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/containerView"
+        android:layout_below="@+id/titlbal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+    <android.support.v4.widget.SwipeRefreshLayout
+
+        android:id="@+id/file_manger_view_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/titlbal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/file_manger_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <!--<android.support.design.widget.CoordinatorLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="50dp"-->
+
+    <!--android:layout_alignParentBottom="true">-->
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab_change_comment"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="center|end"-->
+    <!--app:backgroundTint="#56abe4"-->
+    <!--android:layout_marginBottom="5dp"-->
+    <!--app:elevation="10dp"-->
+    <!--app:rippleColor="#56abe4"-->
+    <!--/>-->
+    <!--</android.support.design.widget.CoordinatorLayout>-->
+</RelativeLayout>

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.view.ViewCompat;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -12,19 +13,23 @@ import android.view.WindowManager;
 
 import com.lgd.znyj_player.R;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Administrator on 2018/2/7.
  */
 
 public class OverallUtils {
-    private   Context mContext;
+    private Context mContext;
 
     public OverallUtils(Context context) {
         this.mContext = context;
     }
 
     @TargetApi(21)
-    public  static void setTranslucentStatus(Activity activity,boolean on) {
+    public static void setTranslucentStatus(Activity activity, boolean on) {
         Window win = activity.getWindow();
 
         WindowManager.LayoutParams winParams = win.getAttributes();
@@ -38,6 +43,7 @@ public class OverallUtils {
 
 //        setStatusBarColorx(activity,activity.getResources().getColor(R.color.colorAccent));
     }
+
     static void translucentStatusBar(Activity activity, boolean hideStatusBarBackground) {
         Window window = activity.getWindow();
         //添加Flag把状态栏设为可绘制模式
@@ -63,6 +69,7 @@ public class OverallUtils {
             ViewCompat.requestApplyInsets(mChildView);
         }
     }
+
     private static void setStatusBarColorx(Activity activity, int statusColor) {
         Window window = activity.getWindow();
         //如果为半透明模式，添加设置Window半透明的Flag
@@ -91,6 +98,37 @@ public class OverallUtils {
     public static Long longPressLong(String devices) {
 
         return Long.parseLong(String.valueOf(devices.hashCode()));
+    }
+
+    //获取系统时间
+    public static String getSystemTime() {
+        return new SimpleDateFormat("[HH:mm:ss] ").format(new Date(System.currentTimeMillis()));
+    }
+
+
+
+
+    /**
+     * 删除单个文件
+     *
+     * @param fileName 要删除的文件的文件名
+     * @return 单个文件删除成功返回true，否则返回false
+     */
+    public static boolean deleteFile(String fileName) {
+        File file = new File(fileName);
+        // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除
+        if (file.exists() && file.isFile()) {
+            if (file.delete()) {
+                Log.i("OverallUtils","删除单个文件" + fileName + "成功！");
+                return true;
+            } else {
+                Log.i("OverallUtils","删除单个文件" + fileName + "失败！");
+                return false;
+            }
+        } else {
+           Log.i("OverallUtils","删除单个文件失败：" + fileName + "不存在！");
+            return false;
+        }
     }
 
 

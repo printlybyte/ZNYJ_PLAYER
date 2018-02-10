@@ -14,7 +14,7 @@ import com.lgd.znyj_player.greendao.gen.DaoSession;
 public class Applacationx extends Application {
 
     private static DaoSession daoSession;
-   public static Context mContext;
+   private  static Context mContext;
 
     @Override
     public void onCreate() {
