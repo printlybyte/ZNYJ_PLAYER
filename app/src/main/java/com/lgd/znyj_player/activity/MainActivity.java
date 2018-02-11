@@ -212,8 +212,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 //        }
 
         initData();
+        initRegUtil();
         initView();
-//        initRegUtil();
     }
     private void initRegUtil() {
         RegUtil regUtil = new RegUtil(this);
@@ -252,12 +252,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
 
                 luanchPlayerActivity(myJdevice, url,ip);
-                Toast.makeText(MainActivity.this, " " + bean.getMYJUrl(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "long click " + position + " item", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, "long click " + position + " item", Toast.LENGTH_SHORT).show();
             }
 
             @Override

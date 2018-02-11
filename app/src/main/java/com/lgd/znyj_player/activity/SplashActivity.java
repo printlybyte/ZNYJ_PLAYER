@@ -52,9 +52,16 @@ public class SplashActivity extends AppCompatActivity {
                 Animation.RELATIVE_TO_SELF,
                 0.5f
         );
-
+//        1.0f,
+//                1.2f,
+//                1.0f,
+//                1.2f,
+//                Animation.RELATIVE_TO_SELF,
+//                0.5f,
+//                Animation.RELATIVE_TO_SELF,
+//                0.5f
         scaleAnim.setFillAfter(true);
-        scaleAnim.setDuration(3000);
+        scaleAnim.setDuration(2000);
         scaleAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {

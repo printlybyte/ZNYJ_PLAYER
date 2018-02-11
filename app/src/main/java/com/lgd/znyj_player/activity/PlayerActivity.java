@@ -1,8 +1,15 @@
 package com.lgd.znyj_player.activity;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.nfc.tech.NfcA;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -11,8 +18,10 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.DragEvent;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,11 +45,13 @@ public class PlayerActivity extends Activity {
 //    public static final String URL = "rtsp://218.246.35.198:554/123456.sdp";
     public static final String URL = "rtsp://192.168.10.200:8554/recovderLive";
 
-//    public static final String URL = "rtsp://10.31.0.61:8554/test.mkv";
+    //    public static final String URL = "rtsp://10.31.0.61:8554/test.mkv";
+    public static final String netACTION = "android.net.conn.CONNECTIVITY_CHANGE";
+    private networkChanges changes;
 
     private GLSurfaceView mSurfaceView;
     private RtspSurfaceRender mRender;
-
+    public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000; //需要自己定义标志
     private Button mButton, mButtoncau;
     private boolean mRecording;
     private String mName;
@@ -48,9 +59,11 @@ public class PlayerActivity extends Activity {
     private String mIp;
     private TextView mShowInfo;
     private Thread mThread;
-    private boolean isp = true;
+    private boolean isp;
     private StringBuilder stringBuilder = new StringBuilder();
+    private AudioManager audioManager;
     ExecutorService singleThreadPool = Executors.newSingleThreadExecutor();
+    private boolean ismRecording = false;
     private Handler mHandle = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -72,9 +85,17 @@ public class PlayerActivity extends Activity {
                     Log.i("qweqwe", "" + mIp + isp + mUlr);
                     break;
                 case 2:
-                    if (!mRecording) {
+                    if (isp) {
                         mRender.startRecording(mName);
-                        mRecording = !mRecording;
+                        ismRecording = true;
+                        stringBuilder.append(getSystemTime() + "智能眼镜连接中..." + '\n');
+                        mShowInfo.setText(stringBuilder);
+                        Toast.makeText(PlayerActivity.this, "开始录制", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        ismRecording = false;
+                        Toast.makeText(PlayerActivity.this, "连接异常,不支持录制", Toast.LENGTH_SHORT).show();
+                        mHandle.sendEmptyMessageDelayed(2, 10000);
                     }
                     break;
                 default:
@@ -86,6 +107,7 @@ public class PlayerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED, FLAG_HOMEKEY_DISPATCHED);//关键代码
         setContentView(R.layout.activity_player);
         Intent intent = getIntent();
         mName = intent.getStringExtra(Constans.PUTEXTART_NAME);
@@ -95,8 +117,15 @@ public class PlayerActivity extends Activity {
             Toast.makeText(this, "程序异常,即将推出", Toast.LENGTH_SHORT).show();
             finish();
         }
+        //获取音频服务
+        audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+        //设置声音模式
+        audioManager.setMode(AudioManager.STREAM_MUSIC);
+        //关闭麦克风
+        audioManager.setMicrophoneMute(false);
+
         mSurfaceView = findViewById(R.id.surface);
-        mSurfaceView.setEGLContextClientVersion(3);
+        mSurfaceView.setEGLContextClientVersion(2);
         mShowInfo = findViewById(R.id.showinfo_txt);
         mRender = new RtspSurfaceRender(mSurfaceView);
         mRender.setRtspUrl(mUlr);
@@ -129,7 +158,21 @@ public class PlayerActivity extends Activity {
         mHandle.sendEmptyMessage(1);
         stringBuilder.append(getSystemTime() + "智能眼镜连接中..." + '\n');
         mShowInfo.setText(stringBuilder);
-        mHandle.sendEmptyMessageDelayed(2, 3000);
+        mHandle.sendEmptyMessageDelayed(2, 6000);
+        registRecever();
+    }
+
+    /**
+     * @Params: regist recever
+     * @Author: liuguodong
+     * @Date: 2018/2/11 10:47
+     * @return：
+     */
+
+    private void registRecever() {
+        IntentFilter filter = new IntentFilter(netACTION);
+        changes = new networkChanges();
+        registerReceiver(changes, filter);
     }
 
     @Override
@@ -142,10 +185,13 @@ public class PlayerActivity extends Activity {
     protected void onPause() {
         super.onPause();
         mSurfaceView.onPause();
+
     }
 
     @Override
     protected void onDestroy() {
+        audioManager.setMicrophoneMute(true);
+        audioManager.setSpeakerphoneOn(true);
         mRender.onSurfaceDestoryed();
         if (mHandle.hasMessages(1)) {
             mHandle.removeMessages(1);
@@ -153,33 +199,56 @@ public class PlayerActivity extends Activity {
         if (mHandle.hasMessages(2)) {
             mHandle.removeMessages(2);
         }
+        unregisterReceiver(changes);
         super.onDestroy();
     }
 
     @Override
     protected void onStop() {
-        if (mRecording) {
+
+        if (ismRecording) {
             mRender.stopRecording();
-            mRecording = !mRecording;
+            ismRecording = false;
+            Toast.makeText(this, "录制停止", Toast.LENGTH_SHORT).show();
         }
         super.onStop();
     }
 
     @Override
     public void onBackPressed() {
-        if (mRecording) {
+        audioManager.setMicrophoneMute(true);
+        if (ismRecording) {
             mRender.stopRecording();
-            mRecording = !mRecording;
+            ismRecording = false;
+            Toast.makeText(this, "录制停止", Toast.LENGTH_SHORT).show();
         }
+
         finish();
         super.onBackPressed();
     }
 
     public void backOnChick_devicesx(View view) {
-        if (mRecording) {
+        audioManager.setMicrophoneMute(true);
+        if (ismRecording) {
             mRender.stopRecording();
-            mRecording = !mRecording;
+            ismRecording = false;
+            Toast.makeText(this, "录制停止", Toast.LENGTH_SHORT).show();
         }
         finish();
     }
+
+    class networkChanges extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(netACTION)) {
+                if (!NetworkUtils.isConnected()&&ismRecording) {
+                        mRender.stopRecording();
+                        ismRecording = false;
+                        Toast.makeText(context, "录制停止", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+
 }

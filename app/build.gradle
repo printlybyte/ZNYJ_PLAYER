@@ -1,11 +1,27 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
+apply from: 'androidres_build.gradle'
 greendao {
     schemaVersion 1
     daoPackage 'com.lgd.znyj_player.greendao.gen'
     targetGenDir 'src/main/java'
 }
 android {
+    android {
+        lintOptions {
+            checkReleaseBuilds false
+            abortOnError false
+        }
+    }
+
+    signingConfigs {
+        znyj_DS {
+            keyAlias '智能眼镜'
+            keyPassword 'QWEQWE'
+            storeFile file('G:/studioworkspcse/ZNYJ_PLAYER/ZNYJ_PLAYER/app/znyj_DS.jks')
+            storePassword 'QWEQWE'
+        }
+    }
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.lgd.znyj_player"
@@ -16,9 +32,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.znyj_DS
         }
     }
 }
@@ -29,7 +49,7 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'

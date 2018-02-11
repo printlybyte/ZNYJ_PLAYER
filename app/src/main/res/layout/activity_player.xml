@@ -30,6 +30,7 @@
       />
     </ScrollView>
     <Button
+        android:visibility="gone"
         android:id="@+id/btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +42,7 @@
         android:textSize="20sp" />
 
     <Button
+        android:visibility="gone"
         android:id="@+id/btn_cau"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

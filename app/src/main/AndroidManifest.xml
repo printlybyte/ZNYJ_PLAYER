@@ -19,7 +19,6 @@
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <application
         android:name=".Applacationx"
         android:allowBackup="true"
@@ -39,6 +38,10 @@
         <activity android:name=".activity.PlayerActivity"></activity>
         <activity android:name=".activity.FileActivity"
             ></activity>
+
+
+
+
     </application>
 
 </manifest>

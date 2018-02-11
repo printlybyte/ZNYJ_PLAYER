@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.lgd.znyj_player.greendao.gen.DaoMaster;
 import com.lgd.znyj_player.greendao.gen.DaoSession;
+import com.lgd.znyj_player.utils.CrashHandler;
 
 /**
  * Created by Administrator on 2018/2/7.
@@ -21,6 +22,8 @@ public class Applacationx extends Application {
         super.onCreate();
         mContext = this;
         setupDatabase();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
     }
 
     public static Context getAppContext() {
